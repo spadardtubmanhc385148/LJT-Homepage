@@ -5,8 +5,19 @@ permalink: /publications/
 author_profile: true
 ---
 
-{% include base_path %}
+{% if site.author.googlescholar %}
+  <div class="wordwrap">You can also find my articles on <a href="{{ site.author.googlescholar }}">my Google Scholar profile</a>.</div>
+{% endif %}
 
-{% for post in site.publications reversed %}
-  {% include archive-single.html %}
+{% for pub in site.publications reversed %}
+  <div class="list__item">
+    <article class="archive__item">
+      <h2 class="archive__item-title">{{ pub.title }}</h2>
+      <p>Published in <i>{{ pub.venue }}</i>, {{ pub.date | date: "%Y" }}</p>
+      <p>{{ pub.excerpt | markdownify }}</p>
+      {% if pub.content != "" %}
+        <p>{{ pub.content | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+      {% endif %}
+    </article>
+  </div>
 {% endfor %}
